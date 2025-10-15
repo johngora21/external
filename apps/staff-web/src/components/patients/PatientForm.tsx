@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { User, Phone, Mail, Calendar, MapPin, UserPlus } from 'lucide-react'
 
 interface PatientFormProps {
@@ -15,8 +15,6 @@ interface ReferralInfo {
 }
 
 function PatientForm({ patient, isEditMode = false, onSave, onCancel }: PatientFormProps) {
-  const [patientType, setPatientType] = useState<'new' | 'existing'>('new')
-  const [patientId, setPatientId] = useState('')
   const [formData, setFormData] = useState({
     firstName: isEditMode && patient ? patient.firstName : '',
     lastName: isEditMode && patient ? patient.lastName : '',

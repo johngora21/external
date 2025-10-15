@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Plus } from 'lucide-react'
 import AddPatient from '../components/patients/AddPatient'
 import PatientForm from '../components/patients/PatientForm'

@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Search, Plus, Edit, Trash2, Package, AlertTriangle, CheckCircle, TrendingDown, TrendingUp, X } from 'lucide-react'
+import { useState } from 'react'
+import { Search, Plus, Package, X } from 'lucide-react'
 
 interface InventoryItem {
   id: string;
@@ -126,25 +126,6 @@ function Inventory() {
     }
   }
 
-  const getStockIcon = (item: InventoryItem) => {
-    if (item.status === 'out-of-stock') {
-      return <AlertTriangle className="h-4 w-4 text-red-500" />
-    } else if (item.status === 'low-stock') {
-      return <AlertTriangle className="h-4 w-4 text-yellow-500" />
-    } else {
-      return <CheckCircle className="h-4 w-4 text-green-500" />
-    }
-  }
-
-  const getStockTrend = (item: InventoryItem) => {
-    const stockPercentage = (item.currentStock / item.maxStock) * 100
-    if (stockPercentage > 80) {
-      return <TrendingUp className="h-4 w-4 text-green-500" />
-    } else if (stockPercentage < 20) {
-      return <TrendingDown className="h-4 w-4 text-red-500" />
-    }
-    return null
-  }
 
   const formatDate = (date: Date) => {
     return new Intl.DateTimeFormat('en-US', {

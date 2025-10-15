@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Outlet, Link, useLocation } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import { 
@@ -23,12 +23,10 @@ function Layout() {
     { name: 'Patients', href: '/patients', icon: Users },
     { name: 'Consultations', href: '/consultations', icon: Stethoscope },
     { name: 'Supplements', href: '/supplements', icon: Package },
-      { name: 'Inventory', href: '/inventory', icon: ShoppingCart },
+    { name: 'Inventory', href: '/inventory', icon: ShoppingCart },
   ]
 
-  const filteredNavigation = navigation.filter(item => 
-    !item.roles || item.roles.includes(user?.role || '')
-  )
+  const filteredNavigation = navigation
 
   const getRoleDisplayName = (role: string) => {
     switch (role) {

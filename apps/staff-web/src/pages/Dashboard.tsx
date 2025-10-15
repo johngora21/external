@@ -1,34 +1,17 @@
-import React, { useState } from 'react'
-import { useAuth } from '../contexts/AuthContext'
+import { useState } from 'react'
 import { 
   Users, 
   Stethoscope, 
-  Package, 
-  ShoppingCart, 
-  TrendingUp,
-  Calendar,
   DollarSign,
-  Activity,
   PieChart,
   BarChart3,
   UserPlus,
-  Clock,
   Award
 } from 'lucide-react'
 import { PieChart as RechartsPieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts'
 
 function Dashboard() {
-  const { user } = useAuth()
   const [timeRange, setTimeRange] = useState('daily')
-
-  const getRoleDisplayName = (role: string) => {
-    switch (role) {
-      case 'receptionist': return 'Receptionist'
-      case 'consultant': return 'Consultant'
-      case 'pharmacist': return 'Pharmacist'
-      default: return role
-    }
-  }
 
   const getDashboardData = () => {
     const stats = {

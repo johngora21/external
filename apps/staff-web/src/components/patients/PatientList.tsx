@@ -1,52 +1,50 @@
-import React, { useState } from 'react'
-import { Search, Eye, Edit, Phone, Mail, Calendar, User, DollarSign, Stethoscope } from 'lucide-react'
+import { useState } from 'react'
+import { Search, Eye, Edit, User, Stethoscope } from 'lucide-react'
 
+// Import the Patient interface from the parent component
 interface Patient {
-  id: string
-  firstName: string
-  lastName: string
-  email?: string
-  phone?: string
-  dateOfBirth?: Date
-  gender?: 'male' | 'female' | 'other'
-  weight?: number
-  height?: number
-  citizenship?: string
-  country?: string
-  region?: string
-  address?: string
-  emergencyContact?: string
-  medicalHistory?: string
-  allergies?: string
-  referrerId?: string
-  referrerName?: string
-  referralCode?: string
-  totalPurchases: number
-  totalReferrals: number
-  totalEarnings: number
-  isActive: boolean
-  createdAt: Date
-  updatedAt: Date
-  // Consultant assignment fields
-  assignedConsultantId?: string
-  assignedConsultantName?: string
-  consultationStatus?: 'pending' | 'in_progress' | 'completed' | 'cancelled'
-  // Payment status
-  paymentStatus?: 'paid' | 'pending' | 'overdue'
-  // Consultation fee
-  consultationFee?: number
-  // Visit history
+  id: string;
+  firstName: string;
+  lastName: string;
+  email?: string;
+  phone?: string;
+  dateOfBirth?: Date;
+  gender?: 'male' | 'female' | 'other';
+  weight?: number;
+  height?: number;
+  citizenship?: string;
+  country?: string;
+  region?: string;
+  address?: string;
+  emergencyContact?: string;
+  medicalHistory?: string;
+  allergies?: string;
+  referrerId?: string;
+  referrerName?: string;
+  referralCode?: string;
+  totalPurchases: number;
+  totalReferrals: number;
+  totalEarnings: number;
+  clinicId: string;
+  isActive: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+  assignedConsultantId?: string;
+  assignedConsultantName?: string;
+  consultationStatus?: 'pending' | 'in_progress' | 'completed' | 'cancelled';
+  paymentStatus?: 'paid' | 'pending' | 'overdue';
+  consultationFee?: number;
   visits?: {
-    id: string
-    patientId: string
-    visitDate: Date
-    consultantId: string
-    consultantName: string
-    visitType: 'consultation' | 'follow_up' | 'emergency' | 'routine'
-    status: 'scheduled' | 'in_progress' | 'completed' | 'cancelled'
-    notes?: string
-    prescriptions?: string[]
-  }[]
+    id: string;
+    patientId: string;
+    visitDate: Date;
+    consultantId: string;
+    consultantName: string;
+    visitType: 'consultation' | 'follow_up' | 'emergency' | 'routine';
+    status: 'scheduled' | 'in_progress' | 'completed' | 'cancelled';
+    notes?: string;
+    prescriptions?: string[];
+  }[];
 }
 
 interface PatientListProps {
@@ -66,22 +64,6 @@ function PatientList({ patients, onViewPatient, onEditPatient, onAssignConsultan
     patient.referralCode?.toLowerCase().includes(searchTerm.toLowerCase())
   )
 
-  const formatDate = (date: Date) => {
-    return new Intl.DateTimeFormat('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-    }).format(date)
-  }
-
-  const calculateAge = (dateOfBirth: Date) => {
-    const today = new Date()
-    const age = today.getFullYear() - dateOfBirth.getFullYear()
-    const monthDiff = today.getMonth() - dateOfBirth.getMonth()
-    return monthDiff < 0 || (monthDiff === 0 && today.getDate() < dateOfBirth.getDate()) 
-      ? age - 1 
-      : age
-  }
 
   const getStatusBadge = (status?: string) => {
     if (!status) return <span className="text-sm text-gray-500">Not assigned</span>

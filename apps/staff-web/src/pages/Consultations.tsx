@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Plus, Search, Eye, Edit, Calendar, Clock, Stethoscope, User } from 'lucide-react'
+import { Plus, Search, Calendar, Stethoscope, User } from 'lucide-react'
 
 interface Patient {
   id: string;
@@ -117,10 +117,6 @@ function Consultations() {
            consultation.diagnosis.toLowerCase().includes(searchTerm.toLowerCase())
   })
 
-  const getPatientName = (patientId: string) => {
-    const patient = mockPatients.find(p => p.id === patientId)
-    return patient ? `${patient.firstName} ${patient.lastName}` : 'Unknown Patient'
-  }
 
   const formatDateTime = (date: Date) => {
     return new Intl.DateTimeFormat('en-US', {
@@ -151,10 +147,6 @@ function Consultations() {
     }
   }
 
-  const handleEditConsultation = (consultation: Consultation) => {
-    setEditingConsultation(consultation)
-    setShowEditForm(true)
-  }
 
   const handleUpdateConsultation = (updatedConsultation: Consultation) => {
     setConsultations(prev => prev.map(c => 
@@ -164,7 +156,7 @@ function Consultations() {
     setEditingConsultation(null)
   }
 
-  const handleUpdateStatus = (consultationId: string, newStatus: 'scheduled' | 'completed' | 'cancelled') => {
+  const handleUpdateStatus = (consultationId: string, newStatus: 'pending' | 'diagnosis' | 'results' | 'supplements' | 'completed' | 'cancelled') => {
     setConsultations(prev => prev.map(c => 
       c.id === consultationId ? { ...c, status: newStatus, updatedAt: new Date() } : c
     ))
@@ -668,7 +660,7 @@ function Consultations() {
         </div>
         <select
           className="select-field w-40"
-          onChange={(e) => {
+          onChange={() => {
             // Filter by status logic would go here
           }}
         >
@@ -766,7 +758,7 @@ function Consultations() {
                       </button>
                       {consultation.status === 'cancelled' && (
                         <button
-                          onClick={() => handleUpdateStatus(consultation.id, 'scheduled')}
+                          onClick={() => handleUpdateStatus(consultation.id, 'pending')}
                           className="px-2 py-1 text-xs font-medium bg-blue-500 text-white rounded hover:bg-blue-600"
                         >
                           Reschedule
